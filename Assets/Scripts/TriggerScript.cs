@@ -1,8 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TriggerScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject cube;
+    public Material trigger_Mat;
+    public Material trigger_Mat2;
+
     void Start()
     {
         
@@ -12,5 +16,27 @@ public class TriggerScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            cube.SetActive(false);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        cube.SetActive(true);
+        gameObject.GetComponent<Renderer>().material = trigger_Mat;
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            gameObject.GetComponent<Renderer>().material = trigger_Mat2;
+        }
     }
 }
